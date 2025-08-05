@@ -1,0 +1,27 @@
+{
+  "whatsapp": {
+    "enabled": true,
+    "provider": "twilio",
+    "sendIndividualNotifications": true,
+    "sendDailySummary": true,
+    "summaryTime": "06:00",
+    "businessApi": {
+      "accessToken": "",
+      "phoneNumberId": "",
+      "groupId": "",
+      "businessAccountId": ""
+    },
+    "twilio": {
+      "accountSid": "",
+      "authToken": "",
+      "fromNumber": "",
+      "toNumber": ""
+    }
+  },
+  "notifications": {
+    "urgentReminders": true,
+    "shabbatTimes": true,
+    "yomTovTimes": true,
+    "reminderMinutesBefore": 30
+  }
+}

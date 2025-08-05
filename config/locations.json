@@ -1,0 +1,26 @@
+[
+  {
+    "name": "New York",
+    "locationId": "US10001",
+    "timezone": "America/New_York",
+    "description": "New York City, NY"
+  },
+  {
+    "name": "Los Angeles",
+    "locationId": "US90210",
+    "timezone": "America/Los_Angeles",
+    "description": "Los Angeles, CA"
+  },
+  {
+    "name": "Jerusalem",
+    "locationId": "IL91000",
+    "timezone": "Asia/Jerusalem",
+    "description": "Jerusalem, Israel"
+  },
+  {
+    "name": "San Antonio",
+    "locationId": "US78201",
+    "timezone": "America/Chicago",
+    "description": "San Antonio, TX"
+  }
+]

@@ -1,0 +1,54 @@
+name: Fetch Zmanim Times and Deliver Notifications
+
+# This workflow fetches Jewish prayer times and sends WhatsApp notifications
+# Configure these secrets in your GitHub repository settings:
+# - MYZMANIM_USER: Your MyZmanim API username
+# - MYZMANIM_KEY: Your MyZmanim API key
+# - TWILIO_ACCOUNT_SID: Your Twilio Account SID
+# - TWILIO_AUTH_TOKEN: Your Twilio Auth Token
+# - TWILIO_WHATSAPP_FROM: Your Twilio WhatsApp sender number (e.g., whatsapp:+14155238886)
+# - TWILIO_WHATSAPP_TO: The recipient WhatsApp number (e.g., whatsapp:+15551234567)
+
+on:
+  schedule:
+    # Run weekly on Sundays at 6:00 AM UTC (adjust timezone as needed)
+    - cron: '0 6 * * 0'
+  workflow_dispatch: # Allow manual triggering
+  push:
+    branches: [ main ]
+    paths:
+      - 'config/locations.json'
+
+jobs:
+  fetch-zmanim:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build project
+      run: npm run build
+
+    - name: Fetch Zmanim data and deliver notifications
+      env:
+        MYZMANIM_USER: ${{ secrets.MYZMANIM_USER }}
+        MYZMANIM_KEY: ${{ secrets.MYZMANIM_KEY }}
+        # Twilio WhatsApp credentials
+        TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+        TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
+        TWILIO_WHATSAPP_FROM: ${{ secrets.TWILIO_WHATSAPP_FROM }}
+        TWILIO_WHATSAPP_TO: ${{ secrets.TWILIO_WHATSAPP_TO }}
+      run: npm start
